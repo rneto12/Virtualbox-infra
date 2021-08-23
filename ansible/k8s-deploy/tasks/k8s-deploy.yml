@@ -1,0 +1,16 @@
+---
+- name: Deploy nginx
+  shell: |
+    sleep 20
+    kubectl run nginx --image=nginx
+    kubectl expose pod nginx --port=80 --type=NodePort
+
+- name: Get port
+  shell: |
+    kubectl get svc nginx
+  register: nginx
+
+- name: debug
+  debug: 
+    var: nginx.stdout_lines
+

@@ -1,0 +1,7 @@
+packer/ubuntu20.04.iso
+packer/packer_cache/
+terraform/.terraform*
+terraform/Ubuntu-20.04.box
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+ansible/hosts

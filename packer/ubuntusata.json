@@ -1,0 +1,92 @@
+{
+  "builders": [
+    {
+        "type": "virtualbox-iso",
+        "guest_os_type": "Ubuntu_64",
+        "vm_name": "{{user `vm_name`}}",
+        "format": "ovf",
+        "export_opts": [
+          "--manifest",
+          "--vsys", "0",
+          "--description", "{{user `vm_description`}}"
+        ],
+
+	"output_filename": "{{user `vm_name`}}",
+	"output_directory": "{{user `vm_name`}}",
+
+        "iso_interface": "ide",
+        "hard_drive_interface": "sata",
+        "sata_port_count": "5",
+        "vboxmanage":[
+          [ "modifyvm", "{{.Name}}", "--boot1", "dvd" ],
+	  [ "modifyvm", "{{.Name}}", "--boot2", "disk" ],
+	  [ "modifyvm", "{{.Name}}", "--ioapic", "on" ]
+        ],
+      
+        "cpus": "{{user `vm-cpu-num`}}",
+        "memory": "{{user `vm-mem-size`}}",
+        "disk_size": "{{user `vm-disk-size`}}",       
+        "nic_type": "{{user `network`}}",
+
+        "iso_checksum": "{{user `iso_checksum_type`}}:{{user `iso_checksum`}}",
+        "iso_url": "{{user `iso_url`}}",
+        
+        "cd_label": "cidata",
+        "cd_files" : [
+          "./meta-data",
+          "./user-data"
+        ],
+
+        "boot_wait": "5s",
+        "boot_command": [
+          "<esc><wait><esc><wait><esc><wait><enter>",
+          "<wait>",
+          "/casper/vmlinuz ",
+          " initrd=/casper/initrd <wait> ",
+          " autoinstall --",
+          "<enter>"
+	],
+        
+        "ssh_host": "192.168.0.122",
+        "ssh_password": "packer",
+        "ssh_username": "packer",
+        "ssh_pty": true,
+        "ssh_timeout": "35m",
+        "ssh_handshake_attempts": "400",
+    
+        "shutdown_command": "echo 'packer' | sudo -S shutdown -P now"
+
+    }
+  ],
+  "provisioners": [
+	{
+		"type": "file",
+		"source": "guest.sh",
+		"destination": "~/guest.sh"
+	},
+	{
+		"type": "shell",
+     	        "scripts": [
+			"guest.sh"
+		]
+		
+    	}
+  ],
+  "post-processors": [
+     [
+       	{
+	  "type": "artifice",
+	  "files": [
+  	    "{{ user `vm_name` }}/{{ user `vm_name` }}-disk001.vmdk",
+	    "{{ user `vm_name` }}/{{ user `vm_name` }}.ovf"       
+	  ]
+  	},
+	{   
+	   "type": "vagrant",       
+	   "keep_input_artifact": false,
+           "output": "{{ user `vm_name` }}.box",	   
+	   "provider_override": "virtualbox"    
+      	} 
+     ]
+  ]
+}

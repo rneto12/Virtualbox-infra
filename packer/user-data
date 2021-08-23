@@ -1,0 +1,60 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: en_US
+  keyboard:
+    layout: br
+  network:
+    network:
+      version: 2
+      ethernets:
+        enp0s3:
+          dhcp4: yes
+  storage:
+    layout:
+      name: lvm
+    swap:
+      size: 0
+  identity:
+    hostname: ubuntu
+    username: ubuntu
+    password: "$6$wdAcoXrU039hKYPd$508Qvbe7ObUnxoj15DRCkzC3qO7edjH0VV7BPNRDYK4QR8ofJaEEF2heacn0QgD.f8pO8SNp83XNdWG6tocBM1"
+  ssh:
+    install-server: yes
+    allow-pw: yes
+  package_update: true
+  packages: 
+    - vim
+    - openssl
+    - sudo
+    - dkms
+    - build-essential
+  #  - perl
+  #  - python
+  #  - python3
+  user-data:
+    disable_root: false
+  late-commands:
+    - sed -i -e 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/g' /target/etc/ssh/sshd_config
+    - sed -i -e 's/^#\?PermitRootLogin.*/PermitRootLogin without-password/g' /target/etc/ssh/sshd_config
+    - curtin in-target --target=/target -- apt-get install -y linux-headers-$(uname -r)
+    - curtin in-target --target=/target -- mount /dev/cdrom /mnt
+    - curtin in-target --target=/target -- apt-get --purge -y --quiet=2 autoremove
+    - curtin in-target --target=/target -- apt-get clean
+    - echo 'HISTTIMEFORMAT="%Y-%m-%d %T "' >> /target/etc/profile.d/mytimestamp.sh
+    - echo 'HISTTIMEFORMAT="%Y-%m-%d %T "' >> /target/root/.bashrc
+    #chave acesso ansible
+    - curtin in-target --target=/target -- mkdir -p /root/.ssh
+    - curtin in-target --target=/target -- touch /root/.ssh/authorized_keys
+    - echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDcyysrkG2GMABvIhbpVV/DSqtbY3R4Fs5uAu1eARix9c5XlAa/CHPby8Ayfie4311uEXJlguyRwmjvktyflNBVkn7MokpkXB6PJ+CV26ArglDrQsIxVXT+gKvcx2xwN49Q5wORtFG5J3YOt/nuxsnXf5h93psNvZtmNNYmhHBNpF/NmIlM0AVJOY9mR75WBCVD3MIkjlb+nSq31dID9DlhmN8nMRTGQaulArjjHXUCd3H6LnyHzd+V8ZSZ45Y+ZfuDqUNN3/wGezyl+1O/Ql7bkCb5n/qIo1pLt4GFUQ/JUdWzymk9OcvXspImtlSNzZrIzpSvM83JoBDUFhEMS0JP14ovXhkN+lffb09zr09wfVVzaDEuCyqmKf9oJ4mzjmLG8LrfzsTgotcB9vRiqNbnfmzFf1toWg2GixzvD8wazgzv3KE5A8urXa7FLmO1LL2NZMKOwDnIgu29nazVKgj2/mDduE3ZakGORrZveZFqfGKL4rJJ/EQyGSE659tDejk= doc@doc' >> /target/root/.ssh/authorized_keys
+    #Usuarios
+    #packer user
+    - curtin in-target --target=/target -- useradd -c "usuario para finalizacao do packer. DELETAR NA CRIACAO DA VM" -p $(openssl passwd -crypt packer) -s /bin/bash -m packer
+    - echo 'packer ALL=(ALL) ALL' > /target/etc/sudoers.d/packer
+    - curtin in-target --target=/target -- chmod 440 /etc/sudoers.d/packer
+    - curtin in-target --target=/target -- chage -M 1 packer
+    - curtin in-target --target=/target -- chage -I 1 packer
+    - curtin in-target --target=/target -- chage packer -E $(date +%Y-%m-%d -d "+1 day")
+    #- touch /target/etc/cloud/cloud-init.disabled
+
+

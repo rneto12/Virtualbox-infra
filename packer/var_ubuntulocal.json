@@ -1,0 +1,19 @@
+{    
+    "vm_name": "Ubuntu-20.04",
+    
+    "network": "82540EM",
+
+    "vm-cpu-num": "1",
+    "vm-mem-size": "2048",
+    "vm-disk-size": "11264",
+    "vm_description": "Build by Packer",
+    "vm_version": "v0.0.1",
+    "ssh_username": "packer",
+    "ssh_password": "packer",
+
+    "hostname": "server",
+
+    "iso_url": "ubuntu20.04.iso",
+    "iso_checksum": "d1f2bf834bbe9bb43faf16f9be992a6f3935e65be0edece1dee2aa6eb1767423",
+    "iso_checksum_type": "sha256"
+}

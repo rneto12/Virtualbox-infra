@@ -1,0 +1,12 @@
+[local]
+localhost
+
+[server]
+%{ for ip in server ~}
+${ip}
+%{ endfor ~}
+
+[all:vars]
+%{ for ip in server ~}
+node_ip=${ip}
+%{ endfor ~}

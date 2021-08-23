@@ -1,0 +1,6 @@
+---
+- hosts: server
+  user: root
+  roles:
+    - k8s
+    - k8s-deploy
