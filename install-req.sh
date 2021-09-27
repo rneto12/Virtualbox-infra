@@ -18,7 +18,7 @@ apt-mark hold terraform
 if [ ! -d "/root/.terraform.d/plugins" ]; then
         mkdir -p /root/.terraform.d/plugins
 fi
-if [ ! -d "~/.terraform.d/plugins/terraform-provider-virtualbox" ]; then
+if [ ! -f "~/.terraform.d/plugins/terraform-provider-virtualbox" ]; then
         wget -O ~/.terraform.d/plugins/terraform-provider-virtualbox https://github.com/terra-farm/terraform-provider-virtualbox/releases/download/v0.2.0/terraform-provider-virtualbox-v0.2.0-linux_amd64
         chmod +x ~/.terraform.d/plugins/terraform-provider-virtualbox
 fi
