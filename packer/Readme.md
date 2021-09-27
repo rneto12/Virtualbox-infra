@@ -7,4 +7,4 @@ Comando:
 
 
 
-Imagem iso baixada de: https://releases.ubuntu.com/20.04/ubuntu-20.04.2-live-server-amd64.iso
+Imagem iso baixada de: https://releases.ubuntu.com/20.04/ubuntu-20.04.3-live-server-amd64.iso
