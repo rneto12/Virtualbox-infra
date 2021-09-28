@@ -14,4 +14,5 @@ Ansible: Instala um ambiente kubernetes com apenas 1 servidor e faz um deploy de
 **Como usar**
 
 1 - sudo sh install-req.sh
+
 2 - sh auto.sh
