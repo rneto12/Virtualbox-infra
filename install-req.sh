@@ -11,5 +11,7 @@ apt-add-repository -y "deb [arch=$(dpkg --print-architecture)] https://apt.relea
 # install packages
 apt update
 apt install -y terraform=0.12.31 ansible packer virtualbox
-echo virtualbox-ext-pack virtualbox-ext-pack/license select true | apt install virtualbox-ext-pack -y
+echo virtualbox-ext-pack virtualbox-ext-pack/license select true | debconf-set-selections | apt install virtualbox-ext-pack -y
 apt-mark hold terraform
+
+

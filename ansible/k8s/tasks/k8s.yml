@@ -169,6 +169,12 @@
     kubectl taint node k8s-server node-role.kubernetes.io/master:NoSchedule-
     sleep 15
 
+- name: Install metrics-server
+  shell: |
+    kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+    sleep 10
+    kubectl -n kube-system get deployments.apps metrics-server -oyaml | sed '/^        - --metric-resolution=15s/i\        - --kubelet-insecure-tls' | kubectl replace -f -
+
 - name: Reboot
   reboot:
     msg: "Rebooted by Ansible"

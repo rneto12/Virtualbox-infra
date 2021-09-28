@@ -46,7 +46,7 @@ autoinstall:
     #chave acesso ansible
     - curtin in-target --target=/target -- mkdir -p /root/.ssh
     - curtin in-target --target=/target -- touch /root/.ssh/authorized_keys
-    - echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDcyysrkG2GMABvIhbpVV/DSqtbY3R4Fs5uAu1eARix9c5XlAa/CHPby8Ayfie4311uEXJlguyRwmjvktyflNBVkn7MokpkXB6PJ+CV26ArglDrQsIxVXT+gKvcx2xwN49Q5wORtFG5J3YOt/nuxsnXf5h93psNvZtmNNYmhHBNpF/NmIlM0AVJOY9mR75WBCVD3MIkjlb+nSq31dID9DlhmN8nMRTGQaulArjjHXUCd3H6LnyHzd+V8ZSZ45Y+ZfuDqUNN3/wGezyl+1O/Ql7bkCb5n/qIo1pLt4GFUQ/JUdWzymk9OcvXspImtlSNzZrIzpSvM83JoBDUFhEMS0JP14ovXhkN+lffb09zr09wfVVzaDEuCyqmKf9oJ4mzjmLG8LrfzsTgotcB9vRiqNbnfmzFf1toWg2GixzvD8wazgzv3KE5A8urXa7FLmO1LL2NZMKOwDnIgu29nazVKgj2/mDduE3ZakGORrZveZFqfGKL4rJJ/EQyGSE659tDejk= doc@doc' >> /target/root/.ssh/authorized_keys
+    - echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDU16YkXEUpj6Se+aPtIOBDXiBS6jQcBgJ1o9QEzz8oFqrS2lEM3i+GMs7UtpVdRjV7QfSE0nXaV2G1q7mvGvBEBU7G8qRdP9EgRzzN2Mr0mHetlWV8BywSO4dWAY1wBCHef0LcVCgbdc+Dic3NM+DKwxH4F8jOypVLfYlFnUJbW2htjVzCJjI2SmcTMebZ8chqmnGg0LEfMHBZR8o6UoQwO5FbieBytqKpfNXSwZSIOwz5pFTSDSvgLOggVYsE2ohUYUU7CZTDTzMAIQjz65BHYh12qXVTkRHXpo6KNv07UpxInSdmfsj9z3CfE2aGmgiiK3LvcHJLQBDQPajxR8uQyGYI3LsWynOQ5JPZk7T7N+NUMRE9Tkns/Ql/bpC154+wfXoXe3s0IHThv4yLwRH460BUpIffiUY+55FXAbAi5uLYWU5pahpNceYDnFJFWHGXuckROPSsX9lo28BroA9zSpPWucz2rAVUWrgOSFOuTkOXcnarjKqsuvLV+8R0i3M= doc@doc' >> /target/root/.ssh/authorized_keys
     #Usuarios
     #packer user
     - curtin in-target --target=/target -- useradd -c "usuario para finalizacao do packer. DELETAR NA CRIACAO DA VM" -p $(openssl passwd -crypt packer) -s /bin/bash -m packer

@@ -8,9 +8,23 @@
 - name: Get port
   shell: |
     kubectl get svc nginx
-  register: nginx
+  register: nginxResults
 
 - name: debug
   debug: 
-    var: nginx.stdout_lines
+    var: nginxResults
+    verbosity: 1
+
+- name: save results
+  connection: local
+  local_action:
+    module: copy
+    content: "{{ nginxResults  }}"
+    dest: ./nginx.out
+
+- name: copy k8s config
+  fetch:
+    src: /etc/kubernetes/admin.conf
+    dest: ./config
+    flat: yes
 
