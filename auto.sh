@@ -20,7 +20,7 @@ fi
 if [ -f "ansible/config" ]; then
 	rm -rf ansible/config
 	rm -rf ansible/nginx.out
-]
+fi
 
 echo "Criando template com Packer"
 
