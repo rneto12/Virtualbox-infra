@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Run this script as regular user
+
 echo "Limpando execuções previas"
 
 if [ -d "packer/Ubuntu-20.04" ]; then
