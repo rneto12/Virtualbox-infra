@@ -1,0 +1,2 @@
+SHA1 (Ubuntu-20.04-disk001.vmdk) = d817a434abab5fdb9ab6f3c527b30ed1c06d7c75
+SHA1 (Ubuntu-20.04.ovf) = 43cdb8b32816a1a9529cd5c9833efd485e8d854d

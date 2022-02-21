@@ -7,9 +7,9 @@ resource "virtualbox_vm" "node" {
   memory = "2 Gib"
 
   network_adapter {
-    type = "bridged"
-    host_interface = "enx8cae4ce10175"
+    type = "nat"
     device = "IntelPro1000MTDesktop"
+    host_interface = "NatNetwork"
   }
 }
 output "IPAddr" {

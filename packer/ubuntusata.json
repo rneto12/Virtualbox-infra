@@ -11,16 +11,16 @@
           "--description", "{{user `vm_description`}}"
         ],
 
-	"output_filename": "{{user `vm_name`}}",
-	"output_directory": "{{user `vm_name`}}",
+        "output_filename": "{{user `vm_name`}}",
+        "output_directory": "{{user `vm_name`}}",
 
         "iso_interface": "ide",
         "hard_drive_interface": "sata",
         "sata_port_count": "5",
         "vboxmanage":[
           [ "modifyvm", "{{.Name}}", "--boot1", "dvd" ],
-	  [ "modifyvm", "{{.Name}}", "--boot2", "disk" ],
-	  [ "modifyvm", "{{.Name}}", "--ioapic", "on" ]
+	        [ "modifyvm", "{{.Name}}", "--boot2", "disk" ],
+	        [ "modifyvm", "{{.Name}}", "--ioapic", "on" ]
         ],
       
         "cpus": "{{user `vm-cpu-num`}}",
@@ -59,34 +59,35 @@
     }
   ],
   "provisioners": [
-	{
-		"type": "file",
-		"source": "guest.sh",
-		"destination": "~/guest.sh"
-	},
-	{
-		"type": "shell",
-     	        "scripts": [
-			"guest.sh"
-		]
-		
-    	}
+    {
+      "type": "file",
+      "source": "guest.sh",
+      "destination": "~/guest.sh"
+    },
+    {
+      "type": "shell",
+      "scripts": [
+        "guest.sh"
+      ]
+      
+    }
   ],
-  "post-processors": [
-     [
-       	{
-	  "type": "artifice",
-	  "files": [
-  	    "{{ user `vm_name` }}/{{ user `vm_name` }}-disk001.vmdk",
-	    "{{ user `vm_name` }}/{{ user `vm_name` }}.ovf"       
-	  ]
-  	},
-	{   
-	   "type": "vagrant",       
-	   "keep_input_artifact": false,
-           "output": "{{ user `vm_name` }}.box",	   
-	   "provider_override": "virtualbox"    
-      	} 
-     ]
+  "post-processors": 
+  [
+    [
+      {
+        "type": "artifice",
+        "files": [
+          "{{ user `vm_name` }}/{{ user `vm_name` }}-disk001.vmdk",
+          "{{ user `vm_name` }}/{{ user `vm_name` }}.ovf"       
+        ]
+  	  },
+	    {   
+        "type": "vagrant",       
+        "keep_input_artifact": false,
+        "output": "{{ user `vm_name` }}.box",	   
+        "provider_override": "virtualbox"    
+      } 
+    ]
   ]
 }

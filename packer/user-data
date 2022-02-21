@@ -28,10 +28,7 @@ autoinstall:
     - openssl
     - sudo
     - dkms
-    - build-essential
-  #  - perl
-  #  - python
-  #  - python3
+  #  - build-essential
   user-data:
     disable_root: false
   late-commands:
